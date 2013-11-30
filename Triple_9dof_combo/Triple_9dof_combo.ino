@@ -145,6 +145,8 @@ void initGyro(){
   Wire.endTransmission();
 }
 
+pitch = ;
+roll = ;
 //Added By Jamari and Nico 30/11/13
 float updateCMx(float pitch, float roll){
  
