@@ -160,6 +160,7 @@ float updateCMy(float roll){
 
 int getHeading(){
  
- float Heading = (float) atan(CMy/CMx);
+ float heading = (float) atan(CMy/CMx);
+ return heading;
 }
 //End of Stuff Added by Jamari and Nico
