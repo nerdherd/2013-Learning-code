@@ -15,6 +15,7 @@
 int xAxisGyro, yAxisGyro, zAxisGyro;
 int xAxisCompass, yAxisCompass, zAxisCompass;
 int xAxisAccel,yAxisAccel, zAxisAccel;
+float CMx,CMy;
 void setup()
 {
   Wire.begin();
@@ -145,15 +146,20 @@ void initGyro(){
 }
 
 //Added By Jamari and Nico 30/11/13
-float getCMx(float pitch, float roll){
+float updateCMx(float pitch, float roll){
  
-  float CMx = (float) xAxisCompass*cos(pitch) + yAxisCompass*sin(roll)*sin(pitch) + z*AxisCompass*cos(roll)*sin(pitch);
+  CMx = (float) xAxisCompass*cos(pitch) + yAxisCompass*sin(roll)*sin(pitch) + z*AxisCompass*cos(roll)*sin(pitch);
   return CMx; 
 }
 
-float getCMy(float roll){
+float updateCMy(float roll){
  
-  float  CMy = (float) yAxisCompass*cos(roll) - zAxisCompass*sin(roll);
+  CMy = (float) yAxisCompass*cos(roll) - zAxisCompass*sin(roll);
   return CMy; 
+}
+
+int getHeading(){
+ 
+ float Heading = (float) atan(CMy/CMx);
 }
 //End of Stuff Added by Jamari and Nico
