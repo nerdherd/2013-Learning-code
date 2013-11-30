@@ -148,22 +148,25 @@ void initGyro(){
 
 
 //Added By Jamari and Nico 30/11/13
-float updateCMx(float pitch, float roll){
- int updatePitch(){
+float updatePitch(){
 pitch = yAxisGyro;
 return pitch;
 }
-int updateRoll(){
+
+float updateRoll(){
 roll = xAxisGyro;
 return roll;
 }
- getCMx = (float) xAxisCompass*cos(pitch) + yAxisCompass*sin(roll)*sin(pitch) + z*AxisCompass*cos(roll)*sin(pitch);
+
+float updateCMx(float pitch, float roll){
+
+ CMx = (float) xAxisCompass*cos(pitch) + yAxisCompass*sin(roll)*sin(pitch) + zAxisCompass*cos(roll)*sin(pitch);
   return CMx; 
 }
 
 float updateCMy(float roll){
  
-  getCMy = (float) yAxisCompass*cos(roll) - zAxisCompass*sin(roll);
+  CMy = (float) yAxisCompass*cos(roll) - zAxisCompass*sin(roll);
   return CMy; 
 }
 
