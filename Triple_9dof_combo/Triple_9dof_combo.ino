@@ -144,3 +144,16 @@ void initGyro(){
   Wire.endTransmission();
 }
 
+//Added By Jamari and Nico 30/11/13
+float getCMx(float mag_x,float mag_y,float mag_z, float pitch, float roll){
+ 
+  float CMx = mag_x*cos(pitch) + mag_y*sin(roll)*sin(pitch) + mag_z*cos(roll)*sin(pitch);
+  return CMx; 
+}
+
+float getCMy(float mag_y,float mag_z, float roll){
+ 
+  float  CMy = mag_y*cos(roll) - mag_z*sin(roll);
+  return CMy; 
+}
+//End of Stuff Added by Jamari and Nico
