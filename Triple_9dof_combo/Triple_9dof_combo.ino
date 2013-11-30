@@ -16,6 +16,7 @@ int xAxisGyro, yAxisGyro, zAxisGyro;
 int xAxisCompass, yAxisCompass, zAxisCompass;
 int xAxisAccel,yAxisAccel, zAxisAccel;
 float CMx,CMy;
+float pitch, roll;
 void setup()
 {
   Wire.begin();
@@ -145,18 +146,24 @@ void initGyro(){
   Wire.endTransmission();
 }
 
-pitch = ;
-roll = ;
+
 //Added By Jamari and Nico 30/11/13
 float updateCMx(float pitch, float roll){
- 
-  CMx = (float) xAxisCompass*cos(pitch) + yAxisCompass*sin(roll)*sin(pitch) + z*AxisCompass*cos(roll)*sin(pitch);
+ int updatePitch(){
+pitch = yAxisGyro;
+return pitch;
+}
+int updateRoll(){
+roll = xAxisGyro;
+return roll;
+}
+ getCMx = (float) xAxisCompass*cos(pitch) + yAxisCompass*sin(roll)*sin(pitch) + z*AxisCompass*cos(roll)*sin(pitch);
   return CMx; 
 }
 
 float updateCMy(float roll){
  
-  CMy = (float) yAxisCompass*cos(roll) - zAxisCompass*sin(roll);
+  getCMy = (float) yAxisCompass*cos(roll) - zAxisCompass*sin(roll);
   return CMy; 
 }
 
