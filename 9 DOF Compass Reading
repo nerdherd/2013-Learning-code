@@ -166,7 +166,6 @@ void initGyro()
 }
 
 
-                                                  //Added By Jamari and Nico 30/11/13
 void updatePitch() 
 {
     pitch = yAxisGyro;
@@ -177,7 +176,7 @@ void updateRoll()
     roll = xAxisGyro;
 }
 
-void updateCMx(/*float pitch, float roll*/)
+void updateCMx()
 {
 
     
@@ -186,7 +185,7 @@ void updateCMx(/*float pitch, float roll*/)
     CMx = (float)(xAxisCompass);
 }
 
-void updateCMy(/*float roll*/)
+void updateCMy()
 {
   
     //CMy = (float) yAxisCompass*cos(roll) - zAxisCompass*sin(roll);
@@ -199,5 +198,3 @@ void getHeading()
     CMy = updateCMy();
     int heading =  atan2(CMy,CMx)/PI*180+180;
 }
-
-//End of stuff added by Jamari and Nico
