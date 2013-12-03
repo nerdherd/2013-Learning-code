@@ -58,9 +58,8 @@ void loop()
     Serial.print(".");
     Serial.println(zAxisGyro);
     */
-    int heading = getHeading();
-    updateCMx();
-    updateCMy();
+    updateHeading();
+
 
     Serial.println(heading);
     //  delay(500);
@@ -165,7 +164,7 @@ void initGyro()
     Wire.endTransmission();
 }
 
-
+/*
 void updatePitch() 
 {
     pitch = yAxisGyro;
@@ -176,25 +175,38 @@ void updateRoll()
     roll = xAxisGyro;
 }
 
+//Assigns pitch and roll for testing purposes
+//Delete later
+*/
+
+/*Updates CMx to the xAxis value from the compass
+  When the gyro starts to read values, compensation for tilt will be added*/
+
+
 void updateCMx()
 {
 
     
 
     //CMx = (float) xAxisCompass*cos(pitch) + yAxisCompass*sin(roll)*sin(pitch) + zAxisCompass*cos(roll)*sin(pitch);
-    CMx = (float)(xAxisCompass);
+    CMx = (xAxisCompass);
 }
+
+/*Updates CMy to the yAxis value from the compass
+  When the gyro starts to read values, compensation for tilt will be added*/
 
 void updateCMy()
 {
   
     //CMy = (float) yAxisCompass*cos(roll) - zAxisCompass*sin(roll);
-    CMy = (float)(yAxisCompass);
+    CMy = (yAxisCompass);
 }
 
-void getHeading()
+/*Updates X and Y pulls, calculates the heading (in degrees) using atan2;*/ 
+
+void updateHeading()
 {
-    CMx = updateCMx();
-    CMy = updateCMy();
+    updateCMx();
+    updateCMy();
     int heading =  atan2(CMy,CMx)/PI*180+180;
 }
