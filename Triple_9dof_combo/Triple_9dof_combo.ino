@@ -15,8 +15,12 @@
 int xAxisGyro, yAxisGyro, zAxisGyro;
 int xAxisCompass, yAxisCompass, zAxisCompass;
 int xAxisAccel,yAxisAccel, zAxisAccel;
-float CMx,CMy;
-float pitch, roll;
+
+float CMx,CMy; // CMx and CMy are vector magnet forces.
+//float pitch, roll;
+int heading;
+int error;
+
 void setup()
 {
   Wire.begin();
@@ -113,9 +117,9 @@ void updateCompassValues(){
   }
   Wire.endTransmission();
   xAxisCompass = (tempXYZ[0] << 8) | tempXYZ[1];  //combine 2 bytes into one integer for x;
-  yAxisCompass = (tempXYZ[2] << 8) | tempXYZ[3];  //combine 2 bytes into one integer for x;
-  zAxisCompass = (tempXYZ[4] << 8) | tempXYZ[5];  //combine 2 bytes into one integer for x;
-
+  zAxisCompass = (tempXYZ[2] << 8) | tempXYZ[3];  //combine 2 bytes into one integer for x;
+  yAxisCompass = (tempXYZ[4] << 8) | tempXYZ[5];  //combine 2 bytes into one integer for x;
+//Y and Z are switched to account for compass orientations
 }
 
 void updateGyro(){
@@ -146,33 +150,46 @@ void initGyro(){
   Wire.endTransmission();
 }
 
-
-//Added By Jamari and Nico 30/11/13
+/*
 float updatePitch(){
 pitch = yAxisGyro;
-return pitch;
 }
 
 float updateRoll(){
 roll = xAxisGyro;
-return roll;
+}
+*/
+
+void updateCMx(float pitch, float roll){
+
+// CMx = (float) xAxisCompass*cos(pitch) + yAxisCompass*sin(roll)*sin(pitch) + zAxisCompass*cos(roll)*sin(pitch);
+   CMx = xAxisCompass;
 }
 
-float updateCMx(float pitch, float roll){
-
- CMx = (float) xAxisCompass*cos(pitch) + yAxisCompass*sin(roll)*sin(pitch) + zAxisCompass*cos(roll)*sin(pitch);
-  return CMx; 
-}
-
-float updateCMy(float roll){
+void updateCMy(float roll){
  
-  CMy = (float) yAxisCompass*cos(roll) - zAxisCompass*sin(roll);
-  return CMy; 
+//  CMy = (float) yAxisCompass*cos(roll) - zAxisCompass*sin(roll);
+    CMy = yAxisCompass;
 }
 
-int getHeading(){
+void updateHeading(){
  
- float heading = (float) atan(CMy/CMx);
- return heading;
+ heading = atan(CMy/CMx) % 360;
 }
-//End of Stuff Added by Jamari and Nico
+
+
+
+boolean IsCWShorter(desiredAngle){
+
+int CWDistance = abs(bearing - desiredAngle);
+int CCWDistance = 360 - abs(bearing 0 desiredAngle);
+
+if (CWDistance <= CCWDistance){
+   return 1;
+   error = CWDistance;
+   }else{
+   return 0;
+   error = CCWDistance;
+}
+
+}
