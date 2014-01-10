@@ -162,14 +162,14 @@ roll = xAxisGyro;
 
 void updateCMx(float pitch, float roll){
 
-// CMx = (float) xAxisCompass*cos(pitch) + yAxisCompass*sin(roll)*sin(pitch) + zAxisCompass*cos(roll)*sin(pitch);
-   CMx = xAxisCompass;
+ CMx = xAxisCompass*cos(asin(xAxisAccel)) + yAxisCompass*sin(asin(yAxisAccel))*sin(asin(xAxisAccel)) + zAxisCompass*cos(asin(yAxisAccel))*sin(asin(xAxisAccel));
+//   CMx = xAxisCompass;
 }
 
 void updateCMy(float roll){
  
-//  CMy = (float) yAxisCompass*cos(roll) - zAxisCompass*sin(roll);
-    CMy = yAxisCompass;
+  CMy = yAxisCompass*cos(asin(yAxisAccel)) - zAxisCompass*sin(asin(yAxisAccel));
+//    CMy = yAxisCompass;
 }
 
 void updateHeading(){
